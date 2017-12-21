@@ -27,6 +27,18 @@ var sendDoorbellSMS = function() {
   });
 };
 
+// sends an HTTP request to requestb.in
+/*var sendHTTPRequest = function(){
+  var request = require('request');
+  var url ='https://requestb.in/y2sxnry2'
+  request(url, function (error, response, body) {
+    if (!error) {
+      console.log(body);
+    }
+  });
+  console.log('request sent');
+}*/
+
 Meteor.startup(function() {
 });
 
@@ -56,6 +68,7 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
     if (parsedData.state === 1) {
       console.log('Button Pressed!');
       sendDoorbellSMS();
+      sendHTTPRequest();
     };
   }
   

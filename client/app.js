@@ -15,6 +15,7 @@ Template.main.helpers({
   }
 });
 Template.main.events({
+  /*
   'click #clearMessages': function(e, t) {
     e.preventDefault();
     var messages = Messages.find().fetch();
@@ -26,12 +27,19 @@ Template.main.events({
     e.preventDefault();
     Meteor.call('toggleLight', t.defaultLight());
   },
+  */
   'click #getLightState': function(e, t) {
     e.preventDefault();
     Meteor.call('getLightState', t.defaultLight());
-  }
+  },
+  'click #startDoorbell': function(e, t) {
+    e.preventDefault();
+    Meteor.call('sendBit');
+  },
 });
+
 Template.main.onCreated(function() {
+
   var self = this;
   var defaultLight = Lights.find({
     pin: 13
@@ -40,6 +48,7 @@ Template.main.onCreated(function() {
   self.defaultLight = function() {
     return defaultLight && defaultLight.fetch()[0];
   }
+
   defaultLight.observe({
     changed: function(newDoc, oldDoc) {
       var tmpDoc = newDoc;
@@ -50,4 +59,6 @@ Template.main.onCreated(function() {
     }
   });
   self.subscribe('messages');
+  
+
 });

@@ -1,5 +1,5 @@
 <head>
-  <title>meteor-arduino-serialport</title>
+  <title>doorbell</title>
 </head>
 
 <body>
@@ -17,11 +17,9 @@
 
 <template name='main'>
   <div class='container'>
-    <h2>Meteor/Arduino using serialport</h2>
+    <h2>Meteor/Arduino DoorBell using serialport</h2>
     <hr/>{{#if Template.subscriptionsReady}}
-    <button id='toggleLight' class='btn btn-small btn-{{lightStateClass}}'>Toggle LED</button>
-    <button id='clearMessages' class='btn btn-small btn-primary'>Clear Messages</button>
-    <button id='getLightState' class='btn btn-small btn-primary'>Get Light State</button>
+    <button id='startDoorbell' class='btn btn-small btn-primary'>Start Doorbell</button>
     <br>
     <br>
     <div id='messages'>

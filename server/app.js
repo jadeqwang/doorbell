@@ -65,6 +65,9 @@ Meteor.methods({
   getLightState: function() {
     sendToArduino(new Buffer([2]));
   },
+  sendBit: function() {
+    sendToArduino(new Buffer([2]));
+  },
   removeMessage: function(_id) {
     messagePub.removed('messages', _id);
   }

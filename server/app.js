@@ -1,5 +1,6 @@
 var sendToArduino = function(message) {
   serialPort.write(message);
+  console.log('Sent to device:', message);
 };
 var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
   baudrate: 9600,
@@ -27,17 +28,11 @@ var sendDoorbellSMS = function() {
 };
 
 Meteor.startup(function() {
-  Lights.remove({});
-  Lights.insert({
-    pin: 13,
-    state: false
-  });
+
+  // sendToArduino('anything');
 });
 
 
-Meteor.publish('lights', function() {
-  return Lights.find();
-});
 var messagePub;
 
 Meteor.publish('messages', function() {

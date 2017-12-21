@@ -27,10 +27,9 @@ void loop() {                // this loops continuously while device is on
   newButtonState = digitalRead(buttonPin); // read new Button state
   digitalWrite(ledPin, newButtonState);    // LED is on if the button is on, vice versa
  
-  if (newButtonState == HIGH && buttonState == LOW) { // button just got pressed
-    if (Serial.available() > 0) {
+  if (newButtonState == HIGH && buttonState == LOW && Serial.available() > 0) { 
+    // if the button just got pressed AND the Serial connection is available
       sendData(); // send the button press to the server
-    }
   }
   
   buttonState = newButtonState;            // store the button state for comparison

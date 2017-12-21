@@ -66,9 +66,6 @@ Meteor.methods({
   message: function(newDoc) {
     messagePub.added('messages', Random.id(), newDoc);
   },
-  removeMessage: function(_id) {
-    messagePub.removed('messages', _id);
-  },
   sendBit: function() {
     sendToArduino(new Buffer([2]));
   }

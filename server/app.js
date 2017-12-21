@@ -28,8 +28,6 @@ var sendDoorbellSMS = function() {
 };
 
 Meteor.startup(function() {
-
-  // sendToArduino('anything');
 });
 
 
@@ -41,9 +39,13 @@ Meteor.publish('messages', function() {
 });
 
 
-serialPort.on('open', function() {
+serialPort.on('open', Meteor.bindEnvironment(function() {
   console.log('Port open');
-});
+  Meteor.setTimeout( function() {
+    sendToArduino(new Buffer([2]));
+  }, 2000);
+}));
+
 
 serialPort.on('data', Meteor.bindEnvironment(function(data) {
   console.log('message ' + data);
@@ -71,3 +73,4 @@ Meteor.methods({
     sendToArduino(new Buffer([2]));
   }
 });
+

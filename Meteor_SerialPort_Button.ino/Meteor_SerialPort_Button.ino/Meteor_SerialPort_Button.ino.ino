@@ -18,11 +18,10 @@ void sendData() {
         Serial.print(buttonPin);
         Serial.print(",");
         Serial.print("\n\"state\":");
-        //Serial.print(digitalRead(pin));
         Serial.print(digitalRead(buttonPin)); // send the button state;
         Serial.print(",");
         Serial.print("\n\"messageType\":\"buttonPress\"");
-        //Serial.println("\n}");
+        Serial.println("\n}");
 }
 
 void printFooter () {
@@ -31,16 +30,14 @@ void printFooter () {
 
 void loop()
 {
-  newButtonState = digitalRead(buttonPin);
-  digitalWrite(ledPin, newButtonState); // LED is on if the button is on, vice versa
+  newButtonState = digitalRead(buttonPin); // read new Button state
+  digitalWrite(ledPin, newButtonState);    // LED is on if the button is on, vice versa
  
   if (newButtonState == HIGH && buttonState == LOW) { // button just got pressed
     if (Serial.available() > 0) {
-    sendData();
-    printFooter();
-    //digitalWrite(ledPin, digitalRead(buttonPin)); // LED is on if the button is on, vice versa
+      sendData();
     }
   }
   
-  buttonState = newButtonState;         // buttonState is copy of current newButtonState
+  buttonState = newButtonState;            // store the button state for comparison
 }

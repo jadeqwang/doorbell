@@ -27,21 +27,20 @@ var sendDoorbellSMS = function() {
   });
 };
 
-// sends an HTTP request to requestb.in
-var sendHTTPRequest = function(){
-  //var request = require('request');
-  //var url ='https://requestb.in/y2sxnry2'
-  /*request(url, function (error, response, body) {
-    if (!error) {
-      console.log(body);
-    }
-  });*/
+// variables for chromecastURL and youtube video url
+var youtube = "GWXLPu8Ky9k";
+var chromecastURL = 'http://192.168.0.22:8008/apps/YouTube';
+var runscopeURL = 'https://requestb.in/y2sxnry2';
 
-HTTP.call( 'POST', 'https://requestb.in/y2sxnry2', {
+// sends an HTTP request to chromecast
+var sendHTTPRequest = function(){
+
+HTTP.call( 'POST', runscopeURL, {
   data: {
-    "title": "Title of our new post",
-    "body": "Body of our new post",
-    "userId": 1337
+    "Connection": "Close",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Length": youtube.length,
+    "body" : youtube
   }
 }, function( error, response ) {
   if ( error ) {
@@ -62,6 +61,7 @@ HTTP.call( 'POST', 'https://requestb.in/y2sxnry2', {
        statusCode: 201
      }
     */
+    console.log('HTTP request sent');
   }
 });
   
@@ -99,6 +99,7 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
       console.log('Button Pressed!');
       sendDoorbellSMS();
       sendHTTPRequest();
+      //console.log(youtube, chromecastURL);
     };
   }
   

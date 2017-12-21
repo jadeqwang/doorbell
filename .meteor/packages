@@ -8,3 +8,4 @@ twbs:bootstrap
 fourquet:serialport
 standard-minifiers
 accolver:twilio-meteor
+http

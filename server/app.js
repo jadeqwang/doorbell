@@ -30,12 +30,12 @@ var sendDoorbellSMS = function() {
 // variables for chromecastURL and youtube video url
 var youtube = "GWXLPu8Ky9k";
 var chromecastURL = 'http://192.168.0.22:8008/apps/YouTube';
-var runscopeURL = 'https://requestb.in/y2sxnry2';
+var requestbinURL = 'https://requestb.in/y2sxnry2';
 
 // sends an HTTP request to chromecast
 var sendHTTPRequest = function(){
 
-HTTP.call( 'POST', runscopeURL, {
+HTTP.call( 'POST', requestbinURL, {
   data: {
     "Connection": "Close",
     "Content-Type": "application/x-www-form-urlencoded",

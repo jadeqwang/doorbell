@@ -38,7 +38,7 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
   
   if (parsedData.messageType === 'buttonPress') {
     if (parsedData.state === 1) {
-      console.log('Button Pressed!')
+      console.log('Button Pressed!');
     };
   }
   

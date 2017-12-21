@@ -1,18 +1,17 @@
 const int buttonPin = 2;     // the number of the pushbutton pin
 const int ledPin = 13;       // number of LED pin
 
-int buttonState = 0;         // variable for reading the pushbutton status
+int buttonState = 0;         // variable for storing the pushbutton status
 int newButtonState = 0;      // variable for reading the pushbutton status
 
-void setup()
-{
+void setup() {               // this runs only once upon device start
   pinMode(ledPin, OUTPUT);   // initialize the LED pin as an output
-  Serial.begin(9600);
+  Serial.begin(9600);        // initialize Serial port
   pinMode(buttonPin, INPUT); // initialize the pushbutton pin as an input
-  buttonState = digitalRead(buttonPin);
+  buttonState = digitalRead(buttonPin); // read button state the first time
 }
 
-void sendData() {
+void sendData() {            // crafts some JSON to send to the server
         Serial.print("\n{");
         Serial.print("\n\"pin\": ");
         Serial.print(buttonPin);
@@ -24,18 +23,13 @@ void sendData() {
         Serial.println("\n}");
 }
 
-void printFooter () {
-  Serial.println("\n}");
-}
-
-void loop()
-{
+void loop() {                // this loops continuously while device is on  
   newButtonState = digitalRead(buttonPin); // read new Button state
   digitalWrite(ledPin, newButtonState);    // LED is on if the button is on, vice versa
  
   if (newButtonState == HIGH && buttonState == LOW) { // button just got pressed
     if (Serial.available() > 0) {
-      sendData();
+      sendData(); // send the button press to the server
     }
   }
   

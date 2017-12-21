@@ -28,16 +28,46 @@ var sendDoorbellSMS = function() {
 };
 
 // sends an HTTP request to requestb.in
-/*var sendHTTPRequest = function(){
-  var request = require('request');
-  var url ='https://requestb.in/y2sxnry2'
-  request(url, function (error, response, body) {
+var sendHTTPRequest = function(){
+  //var request = require('request');
+  //var url ='https://requestb.in/y2sxnry2'
+  /*request(url, function (error, response, body) {
     if (!error) {
       console.log(body);
     }
-  });
-  console.log('request sent');
-}*/
+  });*/
+
+HTTP.call( 'POST', 'https://requestb.in/y2sxnry2', {
+  data: {
+    "title": "Title of our new post",
+    "body": "Body of our new post",
+    "userId": 1337
+  }
+}, function( error, response ) {
+  if ( error ) {
+    console.log( error );
+  } else {
+    console.log( response );
+    /*
+     This will return the HTTP response object that looks something like this:
+     {
+       content: "String of content...",
+       data: {
+         "id": 101,
+         "title": "Title of our new post",
+         "body": "Body of our new post",
+         "userId": 1337
+       },
+       headers: {  Object containing HTTP response headers }
+       statusCode: 201
+     }
+    */
+  }
+});
+  
+}
+
+
 
 Meteor.startup(function() {
 });

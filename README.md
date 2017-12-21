@@ -1,3 +1,7 @@
+# Doorbell project
+
+Jade's doorbell project, which uses meteor-arduino-serialport example app as a starting point.
+
 # Meteor to Arduino using serialport
 
 An example Meteor app showing communication with an Arduino Uno. This project uses the [meteor-package-serialport](https://github.com/fourquet/meteor-package-serialport) meteor package, which is [serialport](https://www.npmjs.org/package/serialport) repackaged for Meteor.

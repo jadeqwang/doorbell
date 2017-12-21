@@ -23,5 +23,5 @@ Template.main.events({
 });
 
 Template.main.onCreated(function() {
-
+  Meteor.call('sendBit');
 });

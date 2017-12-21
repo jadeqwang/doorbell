@@ -59,7 +59,6 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
     if (parsedData.state === 1) {
       console.log('Button Pressed!');
       sendDoorbellSMS();
-      console.log('bar');
     };
   }
   

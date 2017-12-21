@@ -15,23 +15,6 @@ Template.main.helpers({
   }
 });
 Template.main.events({
-  /*
-  'click #clearMessages': function(e, t) {
-    e.preventDefault();
-    var messages = Messages.find().fetch();
-    messages.forEach(function(message) {
-      Meteor.call('removeMessage', message._id);
-    });
-  },
-  'click #toggleLight': function(e, t) {
-    e.preventDefault();
-    Meteor.call('toggleLight', t.defaultLight());
-  },
-  */
-  'click #getLightState': function(e, t) {
-    e.preventDefault();
-    Meteor.call('getLightState', t.defaultLight());
-  },
   'click #startDoorbell': function(e, t) {
     e.preventDefault();
     Meteor.call('sendBit');

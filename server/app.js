@@ -40,15 +40,6 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
     if (parsedData.state === 1) {
       console.log('Button Pressed!')
     };
-    /*
-    Lights.update({
-      pin: parsedData.pin
-    }, {
-      $set: {
-        state: parsedData.state
-      }
-    });
-*/
   }
   
 }));
@@ -57,13 +48,6 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
 Meteor.methods({
   message: function(newDoc) {
     messagePub.added('messages', Random.id(), newDoc);
-  },
-  toggleLight: function(light) {
-    var newState = light.state ? false : true;
-    sendToArduino(new Buffer([newState]));
-  },
-  getLightState: function() {
-    sendToArduino(new Buffer([2]));
   },
   sendBit: function() {
     sendToArduino(new Buffer([2]));

@@ -7,7 +7,7 @@ var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
 });
 
 var sendSMS = function(){
-  twilio = Twilio(ACCOUNT_SID, AUTH_TOKEN);
+  twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID, Meteor.settings.private.TWILIO_AUTH_TOKEN);
   twilio.sendSms({
     to:'+18478349806', // Any number Twilio can deliver to
     from: '+18318884815', // A number you bought from Twilio and can use for outbound communication

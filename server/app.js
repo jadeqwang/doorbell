@@ -28,20 +28,20 @@ var sendDoorbellSMS = function() {
 };
 
 // variables for chromecastURL and youtube video url
-var youtube = "GWXLPu8Ky9k";
-var chromecastURL = 'http://192.168.0.22:8008/apps/YouTube';
+var youtube = "v=qZC5gtOw3DU";
+//var chromecastURL = 'http://192.168.0.22:8008/apps/YouTube';
+var chromecastURL = 'http://chromecast-music:8008/apps/YouTube';
 var requestbinURL = 'https://requestb.in/y2sxnry2';
 
 // sends an HTTP request to chromecast
 var sendHTTPRequest = function(){
 
-HTTP.call( 'POST', requestbinURL, {
-  data: {
-    "Connection": "Close",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Content-Length": youtube.length,
-    "body" : youtube
-  }
+HTTP.call( 'POST', chromecastURL, {
+  headers: {
+    "User-Agent": "doorbell-meteor-app",
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  content: youtube
 }, function( error, response ) {
   if ( error ) {
     console.log( error );

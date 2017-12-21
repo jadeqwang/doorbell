@@ -9,8 +9,8 @@ var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
 var sendSMS = function(){
   twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID, Meteor.settings.private.TWILIO_AUTH_TOKEN);
   twilio.sendSms({
-    to:'+18478349806', // Any number Twilio can deliver to
-    from: '+18318884815', // A number you bought from Twilio and can use for outbound communication
+    to: Meteor.settings.private.sender_number, // Any number Twilio can deliver to
+    from: Meteor.settings.private.recipient_number, // A number you bought from Twilio and can use for outbound communication
     body: 'Doorbell rang!' // body of the SMS message
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
      if (!err) { // "err" is an error received during the request, if any

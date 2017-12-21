@@ -1,8 +1,12 @@
 Messages = new Mongo.Collection('messages');
+
 Template.main.helpers({
+  /*
   lightStateClass: function() {
     return Template.instance().defaultLight().state ? 'success' : 'danger';
   },
+  */
+  
   messages: function() {
     return Messages.find({}, {
       sort: {

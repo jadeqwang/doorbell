@@ -28,15 +28,13 @@ var sendDoorbellSMS = function() {
 };
 
 // variables for chromecastURL and youtube video url
-var youtube = "v=qZC5gtOw3DU";
+//var youtube = "v=qZC5gtOw3DU";
 var player  = Npm.require('chromecast-player')();
-var media   = 'http://10.0.4.4:3000/dingdong.wav';
+var media   = 'http://10.0.4.4:3000/dingdong.mp3';
 
 // various URL's
-// var chromecastURL   = 'http://chromecast-music:8008';
-// var chromecastURL   = 'http://chromecast-music';
-var chromecastURLYT = 'http://chromecast-music:8008/apps/YouTube';
-var requestbinURL   = 'https://requestb.in/y2sxnry2';
+// var chromecastURLYT = 'http://chromecast-music:8008/apps/YouTube';
+// var requestbinURL   = 'https://requestb.in/y2sxnry2';
 
 // plays audio on chromecast
 var playChromecast = function(){
@@ -49,6 +47,7 @@ var playChromecast = function(){
   });
 }
 
+/*
 // sends an HTTP request to chromecast
 var sendHTTPRequest = function(){
   HTTP.call( 'POST', chromecastURLYT, {
@@ -65,7 +64,7 @@ var sendHTTPRequest = function(){
     }
   });
 }
-
+*/
 
 
 Meteor.startup(function() {

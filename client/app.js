@@ -1,7 +1,7 @@
-Messages = new Mongo.Collection('messages');
+//Messages = new Mongo.Collection('messages');
 
 Template.main.helpers({
-  
+  /*
   messages: function() {
     return Messages.find({}, {
       sort: {
@@ -12,6 +12,7 @@ Template.main.helpers({
   isMessageType: function(messageType) {
     return this.messageType === messageType;
   }
+  */
 });
 
 Template.main.events({

@@ -73,23 +73,20 @@ serialPort.on('open', Meteor.bindEnvironment(function() {
 
 serialPort.on('data', Meteor.bindEnvironment(function(data) {
   console.log('message ' + data);
-  var parsedData = JSON.parse(data);
+  //var parsedData = JSON.parse(data);
 
+  console.log('Button Pressed!');
+  sendDoorbellSMS();
+  sendHTTPRequest();
   
-  if (parsedData.messageType === 'buttonPress') {
-    if (parsedData.state === 1) {
-      console.log('Button Pressed!');
-      sendDoorbellSMS();
-      sendHTTPRequest();
-    };
-  }
+
 }));
 
 
 Meteor.methods({
-  message: function(newDoc) {
+  /* message: function(newDoc) {
     messagePub.added('messages', Random.id(), newDoc);
-  },
+  },*/
   sendBit: function() {
     sendToArduino(new Buffer([2]));
   }

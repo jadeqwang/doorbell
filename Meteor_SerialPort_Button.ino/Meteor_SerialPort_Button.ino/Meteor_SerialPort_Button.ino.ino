@@ -14,12 +14,14 @@ void setup() {               // this runs only once upon device start
 
 void sendData() {            // crafts some JSON to send to the server
   Serial.print("\n{");
+  /*
   Serial.print("\n\"pin\": ");
   Serial.print(buttonPin);
   Serial.print(",");
   Serial.print("\n\"state\":");
   Serial.print(digitalRead(buttonPin)); // send the button state;
   Serial.print(",");
+  */
   Serial.print("\n\"messageType\":\"buttonPress\"");
   Serial.println("\n}");
 }

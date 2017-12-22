@@ -47,21 +47,6 @@ HTTP.call( 'POST', chromecastURL, {
     console.log( error );
   } else {
     console.log( response );
-    /*
-     This will return the HTTP response object that looks something like this:
-     {
-       content: "String of content...",
-       data: {
-         "id": 101,
-         "title": "Title of our new post",
-         "body": "Body of our new post",
-         "userId": 1337
-       },
-       headers: {  Object containing HTTP response headers }
-       statusCode: 201
-     }
-    */
-    console.log('HTTP request sent');
   }
 });
   
@@ -99,10 +84,8 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
       console.log('Button Pressed!');
       sendDoorbellSMS();
       sendHTTPRequest();
-      //console.log(youtube, chromecastURL);
     };
   }
-  
 }));
 
 

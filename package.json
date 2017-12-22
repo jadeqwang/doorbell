@@ -1,0 +1,29 @@
+{
+  "name": "doorbell",
+  "version": "1.0.0",
+  "description": "doorbell app",
+  "main": "app.js",
+  "dependencies": {
+    "chromecast-player": "^0.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jadeqwang/doorbell.git"
+  },
+  "keywords": [
+    "chromecast",
+    "sms",
+    "doorbell",
+    "arduino"
+  ],
+  "author": "Jade Wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jadeqwang/doorbell/issues"
+  },
+  "homepage": "https://github.com/jadeqwang/doorbell"
+}

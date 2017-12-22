@@ -54,15 +54,6 @@ var sendHTTPRequest = function(){
 Meteor.startup(function() {
 });
 
-
-var messagePub;
-
-Meteor.publish('messages', function() {
-  messagePub = this;
-  return this.ready();
-});
-
-
 serialPort.on('open', Meteor.bindEnvironment(function() {
   console.log('Port open');
   Meteor.setTimeout( function() {
@@ -72,21 +63,14 @@ serialPort.on('open', Meteor.bindEnvironment(function() {
 
 
 serialPort.on('data', Meteor.bindEnvironment(function(data) {
-  console.log('message ' + data);
-  //var parsedData = JSON.parse(data);
-
+  // console.log('message ' + data);
   console.log('Button Pressed!');
   sendDoorbellSMS();
   sendHTTPRequest();
-  
-
 }));
 
 
 Meteor.methods({
-  /* message: function(newDoc) {
-    messagePub.added('messages', Random.id(), newDoc);
-  },*/
   sendBit: function() {
     sendToArduino(new Buffer([2]));
   }

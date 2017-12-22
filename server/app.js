@@ -28,17 +28,11 @@ var sendDoorbellSMS = function() {
 };
 
 // variables for chromecastURL and youtube video url
-//var youtube = "v=qZC5gtOw3DU";
 var player  = Npm.require('chromecast-player')();
 var media   = 'http://10.0.4.4:3000/dingdong.mp3';
 
-// various URL's
-// var chromecastURLYT = 'http://chromecast-music:8008/apps/YouTube';
-// var requestbinURL   = 'https://requestb.in/y2sxnry2';
-
 // plays audio on chromecast
 var playChromecast = function(){
-  // console.log('chromecastURL', chromecastURL);
 
   player.launch(media, function(err, p) {
     p.once('playing', function() {
@@ -46,25 +40,6 @@ var playChromecast = function(){
     });
   });
 }
-
-/*
-// sends an HTTP request to chromecast
-var sendHTTPRequest = function(){
-  HTTP.call( 'POST', chromecastURLYT, {
-    headers: {
-      "User-Agent": "doorbell-meteor-app",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    content: youtube
-  }, function( error, response ) {
-    if ( error ) {
-      console.log( error );
-    } else {
-      console.log( response );
-    }
-  });
-}
-*/
 
 
 Meteor.startup(function() {
@@ -79,10 +54,9 @@ serialPort.on('open', Meteor.bindEnvironment(function() {
 
 
 serialPort.on('data', Meteor.bindEnvironment(function(data) {
-  console.log('Button Pressed!');
-  sendDoorbellSMS();
-  // sendHTTPRequest();
   playChromecast();
+  sendDoorbellSMS();
+  // console.log('Button Pressed!');
 }));
 
 

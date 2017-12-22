@@ -30,29 +30,57 @@ var sendDoorbellSMS = function() {
 // variables for chromecastURL and youtube video url
 var youtube = "v=qZC5gtOw3DU";
 var player  = Npm.require('chromecast-player')();
-var media   = '../public/dingdong.wav';
+var media   = 'http://10.0.4.4:3000/dingdong.wav';
 
 // various URL's
 // var chromecastURL   = 'http://chromecast-music:8008';
-var chromecastURL   = 'chromecast-music';
+var chromecastURL   = 'http://chromecast-music';
 var chromecastURLYT = 'http://chromecast-music:8008/apps/YouTube';
 var requestbinURL   = 'https://requestb.in/y2sxnry2';
 
-
 // plays audio on chromecast
 var playChromecast = function(){
+  console.log('chromecastURL', chromecastURL);
+  console.log(media);
 
-  player.attach({address:chromecastURL} ,function(err, p) {
-    p.launch(media, function(err, p) {
-      p.once('playing', function() {
-        console.log('playback has started.');
-      });
-      console.log('foo');
+/*
+  player.attach({address:chromecastURL}, function(err,p) {
+    p.play();
+    console.log('test');
+  });
+*/
+  
+
+  player.launch(media, function(err, p) {
+    p.once('playing', function() {
+      console.log('playback has started.');
     });
+  });
+
+
+
+  /*
+  player.attach({address:chromecastURL} ,function(err, p) {
+    if (!err) {
+      console.log('foo');
+      p.launch(media, function(err, p) {
+        if (!err) {
+          console.log('bar');
+          p.once('playing', function() {
+            console.log('playback has started.');
+          });
+        } else{
+          console.log(err);
+        };
+        console.log('baz');
+      });
+    } else{
+      console.log(err);
+    };
     //p.play();
   });
-  
-  console.log('bar');
+  */
+  console.log('qux');
 }
 
 // sends an HTTP request to chromecast

@@ -13,15 +13,15 @@ void setup() {               // this runs only once upon device start
 }
 
 void sendData() {            // crafts some JSON to send to the server
-        Serial.print("\n{");
-        Serial.print("\n\"pin\": ");
-        Serial.print(buttonPin);
-        Serial.print(",");
-        Serial.print("\n\"state\":");
-        Serial.print(digitalRead(buttonPin)); // send the button state;
-        Serial.print(",");
-        Serial.print("\n\"messageType\":\"buttonPress\"");
-        Serial.println("\n}");
+  Serial.print("\n{");
+  Serial.print("\n\"pin\": ");
+  Serial.print(buttonPin);
+  Serial.print(",");
+  Serial.print("\n\"state\":");
+  Serial.print(digitalRead(buttonPin)); // send the button state;
+  Serial.print(",");
+  Serial.print("\n\"messageType\":\"buttonPress\"");
+  Serial.println("\n}");
 }
 
 void loop() {                // this loops continuously while device is on  
@@ -30,6 +30,7 @@ void loop() {                // this loops continuously while device is on
  
   if (newButtonState == HIGH && buttonState == LOW) { // if button just got pressed
     if (Serial.available() > 0) {                     // check if Serial connection is available
+      //Serial.print("hodor");
       sendData();                                     // send the button press to the server
       delay(debounceDelay);                           // wait a moment (debounce)
     }

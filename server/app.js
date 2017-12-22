@@ -16,11 +16,7 @@ var sendDoorbellSMS = function() {
       body: 'Doorbell rang!' // body of the SMS message
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
       if (!err) { // "err" is an error received during the request, if any
-        // "responseData" is a JavaScript object containing data received from Twilio.
-        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-        // console.log(responseData.from); // outputs "+14506667788"
-        console.log(responseData.body); // outputs "word to your mother."
+        console.log(responseData.body); 
       } else {
         console.log('error', err);
       }
@@ -33,7 +29,6 @@ var media   = 'http://10.0.4.4:3000/dingdong.mp3';
 
 // plays audio on chromecast
 var playChromecast = function(){
-
   player.launch(media, function(err, p) {
     p.once('playing', function() {
       console.log('playback has started.', media);
@@ -54,9 +49,9 @@ serialPort.on('open', Meteor.bindEnvironment(function() {
 
 
 serialPort.on('data', Meteor.bindEnvironment(function(data) {
+  console.log('data', data);
   playChromecast();
   sendDoorbellSMS();
-  // console.log('Button Pressed!');
 }));
 
 

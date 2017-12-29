@@ -13,6 +13,16 @@ var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
   parser: serialportpkg.parsers.readline('\r\n')
 });
 
+// read settings.json using fs
+const fs = Npm.require('fs');
+// const fs = require('fs');
+var readSettings = function () {
+  console.log(process.cwd());
+  var mySettings = JSON.parse(fs.readFileSync('/Users/jadewang/meteor-package-serialport/doorbell/settings.json', 'utf8'));
+  console.log('mySettings', mySettings);
+}
+
+
 
 // Twilio variables
 var Twilio = Npm.require('twilio');
@@ -65,6 +75,7 @@ var playChromecast = function(){
 // open serial port to Arduino, sends a bit after 2 s
 serialPort.on('open', function() {
   console.log('Port open');
+  readSettings();
   setTimeout( function() {
     sendToArduino(new Buffer([2]));
   }, 2000);

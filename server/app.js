@@ -10,7 +10,6 @@ var SerialPort    = serialportpkg.SerialPort;
 var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
   baudrate: 9600,
   parser: serialportpkg.parsers.readline('\r\n')
-  // parser: serialportpkg.parsers.raw
 });
 
 
@@ -77,10 +76,4 @@ serialPort.on('data', function(data) {
   console.log('data', data);
 });
 
-/*
-Meteor.methods({
-  sendBit: function() {
-    sendToArduino(new Buffer([2]));
-  }
-});
-*/
+

@@ -4,7 +4,8 @@
   "description": "doorbell app",
   "main": "app.js",
   "dependencies": {
-    "chromecast-player": "^0.2.3"
+    "chromecast-player": "^0.2.3",
+    "twilio": "^1.10.0"
   },
   "devDependencies": {},
   "scripts": {

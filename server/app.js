@@ -7,19 +7,22 @@ var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
   parser: SerialPort.parsers.readline('\r\n')
 });
 
+// Twilio variables
+var Twilio = Npm.require('twilio');
+var twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID, Meteor.settings.private.TWILIO_AUTH_TOKEN);
+
+// sends SMS via Twilio
 var sendDoorbellSMS = function() {
-    //twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID_TEST, Meteor.settings.private.TWILIO_AUTH_TOKEN_TEST);
-    twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID, Meteor.settings.private.TWILIO_AUTH_TOKEN);
-    twilio.sendSms({
-      to: Meteor.settings.private.recipient_number, // Any number Twilio can deliver to
-      from: Meteor.settings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
-      body: 'Doorbell rang!' // body of the SMS message
-      }, function(err, responseData) { //this function is executed when a response is received from Twilio
-      if (!err) { // "err" is an error received during the request, if any
-        console.log(responseData.body); 
-      } else {
-        console.log('error', err);
-      }
+  twilio.sendSms({
+    to: Meteor.settings.private.recipient_number, // Any number Twilio can deliver to
+    from: Meteor.settings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
+    body: 'Doorbell rang!' // body of the SMS message
+  }, function(err, responseData) { //this function is executed when a response is received from Twilio
+    if (!err) { // "err" is an error received during the request, if any
+      console.log(responseData.body); 
+    } else {
+      console.log('error', err);
+    }
   });
 };
 
@@ -30,7 +33,7 @@ var player  = Npm.require('chromecast-player')();
 var media   = 'http://10.0.4.4:3000/dingdong2.mp3';
 
 // some vars for playing audio locally
-var lame = Npm.require('lame'), Speaker = Npm.require('speaker'), fs = require('fs');
+// var lame = Npm.require('lame'), Speaker = Npm.require('speaker'), fs = require('fs');
 //var audioOptions = {channels: 2, bitDepth: 16, sampleRate: 44100};
 // var decoder = lame.Decoder();
 

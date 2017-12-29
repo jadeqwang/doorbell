@@ -21,11 +21,7 @@ const fs = require('fs');
 // Twilio variables
 var mySettings = JSON.parse(fs.readFileSync('/Users/jadewang/meteor-package-serialport/doorbell/settings.json', 'utf8'));
 var Twilio = require('twilio');
-// var twilio = Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
-
 var client = new Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
-
-
 
 // sends SMS via Twilio
 var sendDoorbellSMS = function() {
@@ -36,19 +32,6 @@ var sendDoorbellSMS = function() {
   })
   .then((message) => console.log(message.sid));
 
-  /*
-  twilio.sendSms({
-    to: mySettings.private.recipient_number, // Any number Twilio can deliver to
-    from: mySettings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
-    body: 'Doorbell rang!' // body of the SMS message
-  }, function(err, responseData) { //this function is executed when a response is received from Twilio
-    if (!err) { // "err" is an error received during the request, if any
-      console.log(responseData.body); 
-    } else {
-      console.log('error', err);
-    }
-  });
-*/
 };
 
 // variables for chromecastURL and youtube video url
@@ -57,15 +40,15 @@ var media   = 'http://10.0.4.4:3000/dingdong2.mp3';
 
 // some vars for playing audio locally
 var lame    = require('lame');
-var Speaker = require('speaker'); // fs = require('fs');
-// var audioOptions = {channels: 2, bitDepth: 16, sampleRate: 44100};
+var Speaker = require('speaker');
 var decoder = lame.Decoder();
 
 // play audio locally
 var playAudio = function(){
   var stream = fs.createReadStream('public/dingdong2.mp3').pipe(new lame.Decoder()).on("format", function (format) {
     this.pipe(new Speaker(format))
-  })
+  });
+  console.log('playing sound');
 }
 
 
@@ -88,10 +71,12 @@ serialPort.on('open', function() {
 
 // when a bit is received from Arduino, play a sound and send SMS
 serialPort.on('data', function(data) {
+  console.log('data', data);
   // playChromecast();
   sendDoorbellSMS();
+  console.log('before playing audio');
   playAudio();
-  console.log('data', data);
+
 });
 
 

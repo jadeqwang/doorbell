@@ -6,7 +6,7 @@ var sendToArduino = function(message) {
 
 // serialport variables
 
-var serialportpkg = Npm.require('serialport');
+var serialportpkg = require('serialport');
 var SerialPort    = serialportpkg.SerialPort;
 var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
   baudrate: 9600,
@@ -17,14 +17,26 @@ var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
 
 
 // read settings.json using fs
-const fs = Npm.require('fs');
+const fs = require('fs');
 // Twilio variables
 var mySettings = JSON.parse(fs.readFileSync('/Users/jadewang/meteor-package-serialport/doorbell/settings.json', 'utf8'));
-var Twilio = Npm.require('twilio');
-var twilio = Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
+var Twilio = require('twilio');
+// var twilio = Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
+
+var client = new Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
+
+
 
 // sends SMS via Twilio
 var sendDoorbellSMS = function() {
+  client.messages.create({
+      body: 'Doorbell rang!',
+      to: mySettings.private.recipient_number,  // Text this number
+      from: mySettings.private.sender_number // From a valid Twilio number
+  })
+  .then((message) => console.log(message.sid));
+
+  /*
   twilio.sendSms({
     to: mySettings.private.recipient_number, // Any number Twilio can deliver to
     from: mySettings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
@@ -36,23 +48,22 @@ var sendDoorbellSMS = function() {
       console.log('error', err);
     }
   });
+*/
 };
 
-
-
 // variables for chromecastURL and youtube video url
-var player  = Npm.require('chromecast-player')();
+var player  = require('chromecast-player')();
 var media   = 'http://10.0.4.4:3000/dingdong2.mp3';
 
 // some vars for playing audio locally
-// var lame = Npm.require('lame'), Speaker = Npm.require('speaker'), fs = require('fs');
-//var audioOptions = {channels: 2, bitDepth: 16, sampleRate: 44100};
-// var decoder = lame.Decoder();
+var lame    = require('lame');
+var Speaker = require('speaker'); // fs = require('fs');
+// var audioOptions = {channels: 2, bitDepth: 16, sampleRate: 44100};
+var decoder = lame.Decoder();
 
-// todo: npm install lame and speaker (after updating to newer version of Node)
-// play audio locally; this doesn't work yet
+// play audio locally
 var playAudio = function(){
-  var stream = fs.createReadStream(media).pipe(new lame.Decoder()).on("format", function (format) {
+  var stream = fs.createReadStream('public/dingdong2.mp3').pipe(new lame.Decoder()).on("format", function (format) {
     this.pipe(new Speaker(format))
   })
 }
@@ -77,8 +88,9 @@ serialPort.on('open', function() {
 
 // when a bit is received from Arduino, play a sound and send SMS
 serialPort.on('data', function(data) {
-  playChromecast();
+  // playChromecast();
   sendDoorbellSMS();
+  playAudio();
   console.log('data', data);
 });
 

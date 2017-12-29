@@ -2,6 +2,9 @@ var sendToArduino = function(message) {
   serialPort.write(message);
   console.log('Sent to device:', message);
 };
+
+// serialport variables
+var SerialPort = Npm.require('serialport').SerialPort;
 var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
   baudrate: 9600,
   parser: SerialPort.parsers.readline('\r\n')

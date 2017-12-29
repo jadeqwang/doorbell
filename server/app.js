@@ -4,11 +4,15 @@ var sendToArduino = function(message) {
 };
 
 // serialport variables
-var SerialPort = Npm.require('serialport').SerialPort;
-var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodem1421', {
+
+var serialportpkg = Npm.require('serialport');
+var SerialPort    = serialportpkg.SerialPort;
+var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
   baudrate: 9600,
-  parser: SerialPort.parsers.readline('\r\n')
+  parser: serialportpkg.parsers.readline('\r\n')
+  // parser: serialportpkg.parsers.raw
 });
+
 
 // Twilio variables
 var Twilio = Npm.require('twilio');

@@ -5,6 +5,5 @@
 
 standard-app-packages
 twbs:bootstrap
-fourquet:serialport
 standard-minifiers
 http

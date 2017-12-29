@@ -14,14 +14,6 @@ var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
 });
 
 
-// const fs = require('fs');
-/*
-var readSettings = function () {
-  // console.log(process.cwd());
-  
-  console.log('mySettings', mySettings);
-
-}*/
 
 
 // read settings.json using fs
@@ -78,7 +70,6 @@ var playChromecast = function(){
 // open serial port to Arduino, sends a bit after 2 s
 serialPort.on('open', function() {
   console.log('Port open');
-  // readSettings();
   setTimeout( function() {
     sendToArduino(new Buffer([2]));
   }, 2000);

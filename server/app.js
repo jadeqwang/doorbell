@@ -34,10 +34,6 @@ var sendDoorbellSMS = function() {
 
 };
 
-// variables for chromecastURL and youtube video url
-var player  = require('chromecast-player')();
-var media   = 'http://10.0.4.4:3000/dingdong2.mp3';
-
 // some vars for playing audio locally
 var lame    = require('lame');
 var Speaker = require('speaker');
@@ -51,16 +47,6 @@ var playAudio = function(){
   console.log('playing sound');
 }
 
-
-// plays audio on chromecast
-var playChromecast = function(){
-  player.launch(media, function(err, p) {
-    p.once('playing', function() {
-      console.log('playback has started.', media);
-    });
-  });
-}
-
 // open serial port to Arduino, sends a bit after 2 s
 serialPort.on('open', function() {
   console.log('Port open');
@@ -72,7 +58,6 @@ serialPort.on('open', function() {
 // when a bit is received from Arduino, play a sound and send SMS
 serialPort.on('data', function(data) {
   console.log('data', data);
-  // playChromecast();
   sendDoorbellSMS();
   console.log('before playing audio');
   playAudio();

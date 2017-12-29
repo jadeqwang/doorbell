@@ -4,6 +4,5 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-twbs:bootstrap
 standard-minifiers
 http

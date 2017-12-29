@@ -1,3 +1,4 @@
+// send message to Arduino
 var sendToArduino = function(message) {
   serialPort.write(message);
   console.log('Sent to device:', message);

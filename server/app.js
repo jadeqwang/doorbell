@@ -13,26 +13,29 @@ var serialPort    = new SerialPort('/dev/tty.usbmodem1421', {
   parser: serialportpkg.parsers.readline('\r\n')
 });
 
+
+// const fs = require('fs');
+/*
+var readSettings = function () {
+  // console.log(process.cwd());
+  
+  console.log('mySettings', mySettings);
+
+}*/
+
+
 // read settings.json using fs
 const fs = Npm.require('fs');
-// const fs = require('fs');
-var readSettings = function () {
-  console.log(process.cwd());
-  var mySettings = JSON.parse(fs.readFileSync('/Users/jadewang/meteor-package-serialport/doorbell/settings.json', 'utf8'));
-  console.log('mySettings', mySettings);
-}
-
-
-
 // Twilio variables
+var mySettings = JSON.parse(fs.readFileSync('/Users/jadewang/meteor-package-serialport/doorbell/settings.json', 'utf8'));
 var Twilio = Npm.require('twilio');
-var twilio = Twilio(Meteor.settings.private.TWILIO_ACCOUNT_SID, Meteor.settings.private.TWILIO_AUTH_TOKEN);
+var twilio = Twilio(mySettings.private.TWILIO_ACCOUNT_SID, mySettings.private.TWILIO_AUTH_TOKEN);
 
 // sends SMS via Twilio
 var sendDoorbellSMS = function() {
   twilio.sendSms({
-    to: Meteor.settings.private.recipient_number, // Any number Twilio can deliver to
-    from: Meteor.settings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
+    to: mySettings.private.recipient_number, // Any number Twilio can deliver to
+    from: mySettings.private.sender_number, // A number you bought from Twilio and can use for outbound communication
     body: 'Doorbell rang!' // body of the SMS message
   }, function(err, responseData) { //this function is executed when a response is received from Twilio
     if (!err) { // "err" is an error received during the request, if any
@@ -75,7 +78,7 @@ var playChromecast = function(){
 // open serial port to Arduino, sends a bit after 2 s
 serialPort.on('open', function() {
   console.log('Port open');
-  readSettings();
+  // readSettings();
   setTimeout( function() {
     sendToArduino(new Buffer([2]));
   }, 2000);

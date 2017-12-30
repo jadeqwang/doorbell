@@ -41,11 +41,21 @@ var decoder = lame.Decoder();
 
 // play audio locally
 var playAudio = function(){
-  var stream = fs.createReadStream('public/dingdong2.mp3').pipe(new lame.Decoder()).on("format", function (format) {
-    this.pipe(new Speaker(format))
+  var stream = fs.createReadStream('public/dingdong3.mp3').pipe(new lame.Decoder()).on("format", function (format) {
+    var mySpeaker = new Speaker(format);
+    this.pipe(mySpeaker);
+    this.on('end', () => {            // speaker is borked a bit, so we close the speaker
+      console.log('Closing Speaker'); // before it can execute some illegal instructions
+      mySpeaker.close();              // at this.on('end') -- when the audio is done playing
+    });
   });
-  console.log('playing sound');
 }
+
+// print exceptions to console rather than crash node
+// because closing the speaker a bit early causes an error
+process.on('uncaughtException', function (err) {
+  console.error(err);
+});
 
 // open serial port to Arduino, sends a bit after 2 s
 serialPort.on('open', function() {
@@ -59,9 +69,7 @@ serialPort.on('open', function() {
 serialPort.on('data', function(data) {
   console.log('data', data);
   sendDoorbellSMS();
-  console.log('before playing audio');
   playAudio();
-
 });
 
 

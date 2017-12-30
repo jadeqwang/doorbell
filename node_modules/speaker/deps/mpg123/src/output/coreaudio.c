@@ -255,7 +255,7 @@ static int write_coreaudio(audio_output_t *ao, unsigned char *buf, int len)
 
 	/* If there is no room, then sleep for half the length of the FIFO */
 	while (sfifo_space( &ca->fifo ) < len ) {
-		usleep( (FIFO_DURATION/2) * 1000000 );
+		usleep( (FIFO_DURATION/2) * 100000 );
 	}
 
 	/* Store converted audio in ring buffer */
